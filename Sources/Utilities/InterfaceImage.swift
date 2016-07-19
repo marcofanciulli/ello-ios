@@ -116,9 +116,13 @@ public enum InterfaceImage: String {
             return SVGKImage(named: "\(self.rawValue)_normal.svg").UIImage
         }
     }
-    var selectedImage: UIImage! { return SVGKImage(named: "\(self.rawValue)_selected.svg").UIImage }
-    var whiteImage: UIImage? { return SVGKImage(named: "\(self.rawValue)_white.svg").UIImage }
-    var disabledImage: UIImage? {
+    var selectedImage: UIImage! {
+        return SVGKImage(named: "\(self.rawValue)_selected.svg").UIImage
+    }
+    var whiteImage: UIImage! {
+        return SVGKImage(named: "\(self.rawValue)_white.svg").UIImage
+    }
+    var disabledImage: UIImage! {
         switch self {
         case .Repost, .AngleBracket:
             return SVGKImage(named: "\(self.rawValue)_disabled.svg").UIImage
@@ -126,5 +130,5 @@ public enum InterfaceImage: String {
             return nil
         }
     }
-    var redImage: UIImage? { return SVGKImage(named: "\(self.rawValue)_red.svg").UIImage }
+    var redImage: UIImage! { return SVGKImage(named: "\(self.rawValue)_red.svg").UIImage }
 }
