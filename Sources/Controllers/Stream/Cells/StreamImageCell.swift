@@ -96,7 +96,7 @@ public class StreamImageCell: StreamRegionableCell {
             affiliateButton.hidden = true
             affiliateGreen.hidden = true
             affiliateButton.setTitle(nil, forState: .Normal)
-            affiliateButton.setImage(.Dollar, imageStyle: .Normal, forState: .Normal)
+            affiliateButton.setImage(.Affiliate, imageStyle: .Normal, forState: .Normal)
             affiliateGreen.backgroundColor = .greenD1()
             affiliateGreen.layer.cornerRadius = affiliateGreen.frame.size.width / 2
         }
