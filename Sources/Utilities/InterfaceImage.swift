@@ -74,6 +74,7 @@ public enum InterfaceImage: String {
 
     // Affiliate
     case Affiliate = "$"
+    case AddAffiliate = "$_add"
 
     // Generic
     case X = "x"
@@ -103,6 +104,10 @@ public enum InterfaceImage: String {
             let svgkImage = SVGKImage(named: "\(self.rawValue).svg")
             svgkImage.size = CGSize(width: 6, height: 11)
             return svgkImage.UIImage
+        case .AddAffiliate:
+            let svgkImage = SVGKImage(named: "\(self.rawValue)_normal.svg")
+            svgkImage.size = CGSize(width: 9, height: 16.5)
+            return svgkImage.UIImage
         case .ElloLogo,
             .GiantHeart,
             .AudioPlay,
@@ -117,7 +122,14 @@ public enum InterfaceImage: String {
         }
     }
     var selectedImage: UIImage! {
-        return SVGKImage(named: "\(self.rawValue)_selected.svg").UIImage
+        switch self {
+        case .AddAffiliate:
+            let svgkImage = SVGKImage(named: "\(self.rawValue)_selected.svg")
+            svgkImage.size = CGSize(width: 12, height: 22)
+            return svgkImage.UIImage
+        default:
+            return SVGKImage(named: "\(self.rawValue)_selected.svg").UIImage
+        }
     }
     var whiteImage: UIImage! {
         return SVGKImage(named: "\(self.rawValue)_white.svg").UIImage

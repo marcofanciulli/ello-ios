@@ -511,6 +511,8 @@
 		1D5A90201D3D74B300C2AEFF /* ElloAPISharingHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A901F1D3D74B300C2AEFF /* ElloAPISharingHeaders.swift */; };
 		1D5F97751A9696E700AEEB5F /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8AFAD11A9694040034DDAD /* AttributedStringExtensions.swift */; };
 		1D5F97791A9699DA00AEEB5F /* StreamNotificationCellSizeCalculatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F97771A9699DA00AEEB5F /* StreamNotificationCellSizeCalculatorSpec.swift */; };
+		1D612BF61D3EA39500B4079C /* $_add_selected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1D612BF51D3EA39500B4079C /* $_add_selected.svg */; };
+		1D612BF81D3EA41700B4079C /* $_add_normal.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1D612BF71D3EA41700B4079C /* $_add_normal.svg */; };
 		1D652F5A1BC2D66200AF3B06 /* PostbarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D652F591BC2D66200AF3B06 /* PostbarControllerSpec.swift */; };
 		1D652F5E1BC2FDCD00AF3B06 /* ElloTabBarSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D652F5D1BC2FDCD00AF3B06 /* ElloTabBarSpec.swift */; };
 		1D6680201A89B873003E93C8 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D66801F1A89B873003E93C8 /* ProfileViewController.xib */; };
@@ -578,6 +580,7 @@
 		1DB286E61B96021F00D03516 /* OmnibarErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB286E51B96021F00D03516 /* OmnibarErrorCell.swift */; };
 		1DB474FB1BAB5584000AA9DC /* RegexExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB474FA1BAB5584000AA9DC /* RegexExtensions.swift */; };
 		1DB474FD1BAB5904000AA9DC /* RegexExtensionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB474FC1BAB5904000AA9DC /* RegexExtensionsSpec.swift */; };
+		1DB68E991D46CE0F00D446C7 /* $_add_disabled.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1DB68E981D46CE0F00D446C7 /* $_add_disabled.svg */; };
 		1DBC4A9C1B6044EE00ECF576 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3B6441AC457CA00806224 /* Array.swift */; };
 		1DBE536D1ACB5F8D00DA556E /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A3A4711AB3556F00D2AFB0 /* Math.swift */; };
 		1DBF807C1A9F9F7E00A73BDA /* ElloScrollLogicSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF807B1A9F9F7E00A73BDA /* ElloScrollLogicSpec.swift */; };
@@ -1334,6 +1337,8 @@
 		1D5A901D1D3D749B00C2AEFF /* ElloAPISharingHeaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElloAPISharingHeaders.swift; sourceTree = "<group>"; };
 		1D5A901F1D3D74B300C2AEFF /* ElloAPISharingHeaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElloAPISharingHeaders.swift; sourceTree = "<group>"; };
 		1D5F97771A9699DA00AEEB5F /* StreamNotificationCellSizeCalculatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamNotificationCellSizeCalculatorSpec.swift; sourceTree = "<group>"; };
+		1D612BF51D3EA39500B4079C /* $_add_selected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = $_add_selected.svg; sourceTree = "<group>"; };
+		1D612BF71D3EA41700B4079C /* $_add_normal.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = $_add_normal.svg; sourceTree = "<group>"; };
 		1D652F591BC2D66200AF3B06 /* PostbarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostbarControllerSpec.swift; sourceTree = "<group>"; };
 		1D652F5D1BC2FDCD00AF3B06 /* ElloTabBarSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElloTabBarSpec.swift; sourceTree = "<group>"; };
 		1D66801F1A89B873003E93C8 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
@@ -1403,6 +1408,7 @@
 		1DB286E51B96021F00D03516 /* OmnibarErrorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmnibarErrorCell.swift; sourceTree = "<group>"; };
 		1DB474FA1BAB5584000AA9DC /* RegexExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexExtensions.swift; sourceTree = "<group>"; };
 		1DB474FC1BAB5904000AA9DC /* RegexExtensionsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexExtensionsSpec.swift; sourceTree = "<group>"; };
+		1DB68E981D46CE0F00D446C7 /* $_add_disabled.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = $_add_disabled.svg; sourceTree = "<group>"; };
 		1DBF807B1A9F9F7E00A73BDA /* ElloScrollLogicSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElloScrollLogicSpec.swift; sourceTree = "<group>"; };
 		1DBF85C01AF8022E00889349 /* ElloWebBrowserViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElloWebBrowserViewControllerSpec.swift; sourceTree = "<group>"; };
 		1DC10FA31C3DEB7600846ED6 /* availability__error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = availability__error.json; sourceTree = "<group>"; };
@@ -2991,6 +2997,9 @@
 		1DF404061B150CE50073460B /* CustomSVGs */ = {
 			isa = PBXGroup;
 			children = (
+				1DB68E981D46CE0F00D446C7 /* $_add_disabled.svg */,
+				1D612BF71D3EA41700B4079C /* $_add_normal.svg */,
+				1D612BF51D3EA39500B4079C /* $_add_selected.svg */,
 				1D5A90171D39747E00C2AEFF /* $.svg */,
 				1D472C251C1F349E00B61E55 /* breaklink_normal.svg */,
 				1DF741701BFAAC02000F5349 /* breaklink_white.svg */,
@@ -3564,6 +3573,7 @@
 				76F8DEFE1B6C0BC4009BCF61 /* trash_selected.svg in Resources */,
 				76F8DEC71B6C0BC4009BCF61 /* danger_normal.svg in Resources */,
 				1212FDEA1A66377100AD4AF7 /* comments.json in Resources */,
+				1D612BF61D3EA39500B4079C /* $_add_selected.svg in Resources */,
 				1DA8FD701B98A63600472B1E /* reorder_normal.svg in Resources */,
 				76F8DED71B6C0BC4009BCF61 /* hearts_selected.svg in Resources */,
 				122B19131A8695BF00247A05 /* StreamTextCell.xib in Resources */,
@@ -3607,6 +3617,7 @@
 				1217A3EE1B0CFCDA00DF8495 /* ImportPromptViewController.xib in Resources */,
 				1D9B74D31BB1E62500ACD028 /* bubble_body_white.svg in Resources */,
 				1D5A901C1D3991CC00C2AEFF /* affiliate-image-region.json in Resources */,
+				1D612BF81D3EA41700B4079C /* $_add_normal.svg in Resources */,
 				76F8DEB61B6C0BC4009BCF61 /* bubble_normal.svg in Resources */,
 				12A313D91C73ECAA009727DD /* unselected-pixel@2x.png in Resources */,
 				7689B4D81AD4ED3B00E4A4A3 /* access_tokens_user_access_token_(refresh_token).json in Resources */,
@@ -3653,6 +3664,7 @@
 				76F8DECD1B6C0BC4009BCF61 /* ello_selected.svg in Resources */,
 				76F8DEE21B6C0BC4009BCF61 /* person_selected.svg in Resources */,
 				1D9B74D11BB1E62500ACD028 /* bubble_body_normal.svg in Resources */,
+				1DB68E991D46CE0F00D446C7 /* $_add_disabled.svg in Resources */,
 				7689B4D51AD4ED3B00E4A4A3 /* access_tokens__when_the_user_has_been_locked_out.json in Resources */,
 				7689B4D61AD4ED3B00E4A4A3 /* access_tokens_client_access_token_(client_credentials).json in Resources */,
 				1DA9AA7C1C694F32000562E4 /* profile__no_sharing.json in Resources */,
