@@ -134,6 +134,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
 // MARK: toolbar buttons
     var toolbarButtonViews: [UIView]!
     let avatarButton = UIButton()
+    let affiliateButton = UIButton()
     let cancelButton = UIButton()
     let reorderButton = UIButton()
     let cameraButton = UIButton()
@@ -246,15 +247,23 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
 
     // buttons that make up the "toolbar"
     private func setupToolbarButtons() {
-        cancelButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 9.5, bottom: 4, right: 9.5)
+        affiliateButton.contentEdgeInsets = UIEdgeInsets(tops: 4, sides: 11)
+        affiliateButton.adjustsImageWhenDisabled = false
+        affiliateButton.adjustsImageWhenHighlighted = false
+        affiliateButton.setImages(.AddAffiliate)
+        affiliateButton.setImage(.AddAffiliate, imageStyle: .Disabled, forState: .Disabled)
+        affiliateButton.enabled = false
+        affiliateButton.addTarget(self, action: #selector(OmnibarScreen.addImageAction), forControlEvents: .TouchUpInside)
+
+        cancelButton.contentEdgeInsets = UIEdgeInsets(tops: 4, sides: 9.5)
         cancelButton.setImages(.X)
         cancelButton.addTarget(self, action: #selector(OmnibarScreen.cancelEditingAction), forControlEvents: .TouchUpInside)
 
-        reorderButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 9.5, bottom: 4, right: 9.5)
+        reorderButton.contentEdgeInsets = UIEdgeInsets(tops: 4, sides: 9.5)
         reorderButton.setImages(.Reorder)
         reorderButton.addTarget(self, action: #selector(OmnibarScreen.toggleReorderingTable), forControlEvents: .TouchUpInside)
 
-        cameraButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 9.5, bottom: 4, right: 9.5)
+        cameraButton.contentEdgeInsets = UIEdgeInsets(tops: 4, sides: 9.5)
         cameraButton.setImages(.Camera)
         cameraButton.addTarget(self, action: #selector(OmnibarScreen.addImageAction), forControlEvents: .TouchUpInside)
 
@@ -366,6 +375,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
         }
 
         toolbarButtonViews = [
+            affiliateButton,
             cancelButton,
             reorderButton,
             cameraButton,
