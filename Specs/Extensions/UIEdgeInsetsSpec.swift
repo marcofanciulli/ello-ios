@@ -46,6 +46,13 @@ class UIEdgeInsetsSpec: QuickSpec {
                     expect(insets.bottom) == 0
                     expect(insets.right) == 10
                 }
+                it("supports UIEdgeInsets(tops:,sides:)") {
+                    let insets = UIEdgeInsets(tops: 11, sides: 10)
+                    expect(insets.top) == 11
+                    expect(insets.left) == 10
+                    expect(insets.bottom) == 11
+                    expect(insets.right) == 10
+                }
                 it("supports UIEdgeInsets(all:)") {
                     let insets = UIEdgeInsets(all: 10)
                     expect(insets.top) == 10
