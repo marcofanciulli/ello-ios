@@ -759,23 +759,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
             boldButton.selected = true
         }
 
-        if let selection = textView.selectedTextRange
-            where !selection.empty
-        {
-            let range = textView.selectedRange
-            let currentText = NSMutableAttributedString(attributedString: textView.attributedText)
-            let attributes = [NSFontAttributeName: newFont]
-            currentText.addAttributes(attributes, range: textView.selectedRange)
-            textView.attributedText = currentText
-            textView.selectedRange = range
-
-            updateCurrentText(currentText)
-        }
-        else {
-            textView.typingAttributes = ElloAttributedString.attrs([
-                NSFontAttributeName: newFont,
-            ])
-        }
+        applyFont(newFont)
     }
 
     func italicButtonTapped() {
@@ -801,6 +785,10 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
             italicButton.selected = true
         }
 
+        applyFont(newFont)
+    }
+
+    func applyFont(newFont: UIFont) {
         if let selection = textView.selectedTextRange
             where !selection.empty
         {
