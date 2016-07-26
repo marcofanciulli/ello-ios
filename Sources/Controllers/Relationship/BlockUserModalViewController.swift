@@ -15,13 +15,14 @@ public class BlockUserModalViewController: BaseElloViewController, BlockUserModa
     var userAtName: String { return config.userAtName }
     var changeClosure: RelationshipChangeClosure { return config.changeClosure }
 
-    var screen: BlockUserModalScreen!
+    var screen: BlockUserModalScreen { return self.view as! BlockUserModalScreen }
 
     required public init(config: BlockUserModalConfig) {
         self.config = config
         super.init(nibName: nil, bundle: nil)
-        self.modalPresentationStyle = .Custom
-        self.modalTransitionStyle = .CrossDissolve
+
+        modalPresentationStyle = .Custom
+        modalTransitionStyle = .CrossDissolve
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -29,7 +30,7 @@ public class BlockUserModalViewController: BaseElloViewController, BlockUserModa
     }
 
     override public func loadView() {
-        self.screen = BlockUserModalScreen(config: config)
+        let screen = BlockUserModalScreen(config: config)
         self.view = screen
     }
 
