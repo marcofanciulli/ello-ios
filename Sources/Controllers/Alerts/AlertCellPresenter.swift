@@ -45,7 +45,6 @@ struct AlertCellPresenter {
         cell.input.autocapitalizationType = .Sentences
         cell.input.autocorrectionType = .Default
         cell.input.spellCheckingType = .Default
-        cell.input.keyboardAppearance = .Dark
         cell.input.enablesReturnKeyAutomatically = true
         cell.input.returnKeyType = .Default
 
@@ -55,7 +54,6 @@ struct AlertCellPresenter {
     static func configureForURLAction(cell: AlertCell, type: AlertType, action: AlertAction, textAlignment: NSTextAlignment) {
         configureForInputAction(cell, type: type, action: action)
 
-        cell.input.keyboardAppearance = .Dark
         cell.input.keyboardType = .URL
         cell.input.autocapitalizationType = .None
         cell.input.autocorrectionType = .No
