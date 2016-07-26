@@ -885,12 +885,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
 // MARK: Post logic
 
     public func canPost() -> Bool {
-        for region in submitableRegions {
-            if !region.empty {
-                return true
-            }
-        }
-        return false
+        return submitableRegions.any { !$0.empty }
     }
 
 // MARK: Images
