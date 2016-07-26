@@ -98,17 +98,26 @@ public enum InterfaceImage: String {
         }
     }
 
+    var overrideImageSize: CGSize? {
+        switch self {
+        case .Affiliate: return CGSize(width: 6, height: 11)
+        case .AddAffiliate: return CGSize(width: 9, height: 16.5)
+        default: return nil
+        }
+    }
+
+    private func svgNamed(name: String) -> UIImage {
+        let svgkImage = SVGKImage(named: "\(name).svg")
+        if let overrideImageSize = overrideImageSize {
+            svgkImage.size = overrideImageSize
+        }
+        return svgkImage.UIImage
+    }
+
     var normalImage: UIImage! {
         switch self {
-        case .Affiliate:
-            let svgkImage = SVGKImage(named: "\(self.rawValue).svg")
-            svgkImage.size = CGSize(width: 6, height: 11)
-            return svgkImage.UIImage
-        case .AddAffiliate:
-            let svgkImage = SVGKImage(named: "\(self.rawValue)_normal.svg")
-            svgkImage.size = CGSize(width: 9, height: 16.5)
-            return svgkImage.UIImage
         case .ElloLogo,
+            .Affiliate,
             .GiantHeart,
             .AudioPlay,
             .VideoPlay,
@@ -116,31 +125,50 @@ public enum InterfaceImage: String {
             .NarrationPointer,
             .ValidationError,
             .ValidationOK:
-            return SVGKImage(named: "\(self.rawValue).svg").UIImage
+            return svgNamed(self.rawValue)
         default:
-            return SVGKImage(named: "\(self.rawValue)_normal.svg").UIImage
+            return svgNamed("\(self.rawValue)_normal")
         }
     }
     var selectedImage: UIImage! {
-        switch self {
-        case .AddAffiliate:
-            let svgkImage = SVGKImage(named: "\(self.rawValue)_selected.svg")
-            svgkImage.size = CGSize(width: 12, height: 22)
-            return svgkImage.UIImage
-        default:
-            return SVGKImage(named: "\(self.rawValue)_selected.svg").UIImage
-        }
+        return svgNamed("\(self.rawValue)_selected")
     }
-    var whiteImage: UIImage! {
-        return SVGKImage(named: "\(self.rawValue)_white.svg").UIImage
-    }
-    var disabledImage: UIImage! {
+    var whiteImage: UIImage? {
         switch self {
-        case .Repost, .AngleBracket:
-            return SVGKImage(named: "\(self.rawValue)_disabled.svg").UIImage
+        case .AngleBracket,
+             .Arrow,
+             .BreakLink,
+             .BubbleBody,
+             .Camera,
+             .CheckSmall,
+             .Comments,
+             .Heart,
+             .Invite,
+             .Link,
+             .Pencil,
+             .PlusSmall,
+             .Repost,
+             .Star,
+             .X:
+            return svgNamed("\(self.rawValue)_white")
         default:
             return nil
         }
     }
-    var redImage: UIImage! { return SVGKImage(named: "\(self.rawValue)_red.svg").UIImage }
+    var disabledImage: UIImage? {
+        switch self {
+        case .Repost, .AngleBracket, .AddAffiliate:
+            return svgNamed("\(self.rawValue)_disabled")
+        default:
+            return nil
+        }
+    }
+    var redImage: UIImage? {
+        switch self {
+        case .X:
+            return svgNamed("\(self.rawValue)_red")
+        default:
+            return nil
+        }
+    }
 }
