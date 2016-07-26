@@ -65,9 +65,12 @@ public class ElloNetworkError: JSONAble {
     override public class func fromJSON(data: [String: AnyObject], fromLinked: Bool = false) -> JSONAble {
         let json = JSON(data)
         let title = json["title"].stringValue
-        var codeType = CodeType.unknown
+        let codeType: CodeType
         if let actualCode = ElloNetworkError.CodeType(rawValue: json["code"].stringValue) {
             codeType = actualCode
+        }
+        else {
+            codeType = .unknown
         }
         let detail = json["detail"].string
         let status = json["status"].string

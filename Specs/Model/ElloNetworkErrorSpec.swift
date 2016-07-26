@@ -21,6 +21,18 @@ class ElloNetworkErrorSpec: QuickSpec {
             expect(elloNetworkError.attrs!["name"]!) == ["can't be blank"]
         }
 
+        it("converts from JSON, sparse data") {
+            let errors = stubbedJSONData("422_sparse", "errors")
+            let elloNetworkError = ElloNetworkError.fromJSON(errors) as! ElloNetworkError
+
+            expect(elloNetworkError.code) == ElloNetworkError.CodeType.unknown
+            expect(elloNetworkError.title) == "The current resource was invalid."
+            expect(elloNetworkError.status).to(beNil())
+            expect(elloNetworkError.detail).to(beNil())
+            expect(elloNetworkError.messages).to(beNil())
+            expect(elloNetworkError.attrs).to(beNil())
+        }
+
         it("defaults code to unknown if json code string isn't supported") {
             let errors = stubbedJSONData("0", "errors")
             let elloNetworkError = ElloNetworkError.fromJSON(errors) as! ElloNetworkError
