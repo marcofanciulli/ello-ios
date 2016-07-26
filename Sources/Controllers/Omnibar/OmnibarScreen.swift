@@ -888,26 +888,32 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
         return submitableRegions.any { !$0.empty }
     }
 
+    public func hasImage() -> Bool {
+        return submitableRegions.any { $0.isImage }
+    }
+
 // MARK: Images
 
     // Notes on UITableView animations: since the modal is used here, the
     // animations only added complicated logic, no visual "bonus".  `reloadData`
     // is the way to go on this one.
     public func addImage(image: UIImage?, data: NSData? = nil, type: String? = nil) {
-        if let image = image {
-            if let region = submitableRegions.last where region.empty {
-                let lastIndex = submitableRegions.count - 1
-                submitableRegions.removeAtIndex(lastIndex)
-            }
-
-            submitableRegions.append(.Image(image, data, type))
-            submitableRegions.append(.Text(""))
-            editableRegions = generateEditableRegions(submitableRegions)
-            reorderableRegions = generateReorderableRegions(submitableRegions)
-
-            regionsTableView.reloadData()
-            regionsTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.tableViewRegions.count - 1, inSection: 0), atScrollPosition: .None, animated: true)
+        guard let image = image else {
+            return
         }
+
+        if let region = submitableRegions.last where region.empty {
+            let lastIndex = submitableRegions.count - 1
+            submitableRegions.removeAtIndex(lastIndex)
+        }
+
+        submitableRegions.append(.Image(image, data, type))
+        submitableRegions.append(.Text(""))
+        editableRegions = generateEditableRegions(submitableRegions)
+        reorderableRegions = generateReorderableRegions(submitableRegions)
+
+        regionsTableView.reloadData()
+        regionsTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.tableViewRegions.count - 1, inSection: 0), atScrollPosition: .None, animated: true)
 
         updateButtons()
     }
