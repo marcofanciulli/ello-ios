@@ -474,7 +474,7 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
 
     public func omnibarPresentController(controller: UIViewController) {
         if !(controller is AlertViewController) {
-            UIApplication.sharedApplication().statusBarStyle = .Default
+            UIApplication.sharedApplication().statusBarStyle = .LightContent
         }
         self.presentViewController(controller, animated: true, completion: nil)
     }

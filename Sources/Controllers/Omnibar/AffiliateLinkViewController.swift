@@ -27,7 +27,7 @@ public class AffiliateLinkViewController: UIViewController {
 extension AffiliateLinkViewController: AffiliateLinkDelegate {
 
     public func closeModal() {
-        dismissViewControllerAnimated(false, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
 }
