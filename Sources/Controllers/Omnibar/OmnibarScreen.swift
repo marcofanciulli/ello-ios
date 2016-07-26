@@ -534,7 +534,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
             case let .AttributedText(text):
                 buffer = buffer.joinWithNewlines(text)
                 lastRegionIsText = true
-            case .Image:
+            case .ImageData, .Image:
                 if buffer.string.characters.count > 0 {
                     regions.append(.AttributedText(buffer))
                 }
@@ -740,6 +740,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
 
     public func affiliateButtonTapped() {
         let vc = AffiliateLinkViewController()
+        vc.delegate = self
         delegate?.omnibarPresentController(vc)
     }
 
@@ -839,15 +840,17 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
         }
         else {
             requestLinkURL() { url in
-                if let url = url {
-                    self.textView.textStorage.addAttributes([
-                        NSLinkAttributeName: url,
-                        NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
-                        ], range: range)
-                    self.linkButton.selected = true
-                    self.linkButton.enabled = true
-                    self.updateCurrentText(self.textView.textStorage)
+                guard let url = url else {
+                    return
                 }
+
+                self.textView.textStorage.addAttributes([
+                    NSLinkAttributeName: url,
+                    NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
+                    ], range: range)
+                self.linkButton.selected = true
+                self.linkButton.enabled = true
+                self.updateCurrentText(self.textView.textStorage)
             }
         }
 
@@ -914,7 +917,12 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
             submitableRegions.removeAtIndex(lastIndex)
         }
 
-        submitableRegions.append(.Image(image, data, type))
+        if let data = data, type = type {
+            submitableRegions.append(.ImageData(image, data, type))
+        }
+        else {
+            submitableRegions.append(.Image(image))
+        }
         submitableRegions.append(.Text(""))
         editableRegions = generateEditableRegions(submitableRegions)
         reorderableRegions = generateReorderableRegions(submitableRegions)

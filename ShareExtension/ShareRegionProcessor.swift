@@ -29,7 +29,7 @@ public class ShareRegionProcessor {
                 }
             }
             else if let image = preview.image {
-                let region = PostEditingService.PostContentRegion.ImageData(image, nil, nil)
+                let region = PostEditingService.PostContentRegion.Image(image)
                 let exists = content.any {$0 == region}
                 if !exists {
                     content.append(region)

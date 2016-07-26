@@ -159,16 +159,17 @@ public class RoundedElloButton: ElloButton {
 public class GreenElloButton: ElloButton {
 
     override func updateStyle() {
-        backgroundColor = enabled ? .greenD1() : .greyF1()
+        backgroundColor = enabled ? .greenD1() : .grey6()
     }
 
     override func sharedSetup() {
         titleLabel?.font = UIFont.defaultFont()
         titleLabel?.numberOfLines = 1
         setTitleColor(.whiteColor(), forState: .Normal)
-        setTitleColor(.grey6(), forState: .Highlighted)
-        setTitleColor(.greyA(), forState: .Disabled)
+        setTitleColor(.greyA(), forState: .Highlighted)
+        setTitleColor(.whiteColor(), forState: .Disabled)
         layer.cornerRadius = 5
+        updateStyle()
     }
 
 }

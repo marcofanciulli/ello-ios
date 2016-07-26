@@ -22,6 +22,8 @@ public func == (lhs: PostEditingService.PostContentRegion, rhs: PostEditingServi
         return a == b
     case let (.ImageData(la, _, _), .ImageData(ra, _, _)):
         return la == ra
+    case let (.Image(la), .Image(ra)):
+        return la == ra
     default:
         return false
     }
@@ -36,7 +38,8 @@ public class PostEditingService: NSObject {
     public typealias ImageData = (UIImage, NSData?, String?)
     public enum PostContentRegion {
         case Text(String)
-        case ImageData(UIImage, NSData?, String?)
+        case ImageData(UIImage, NSData, String)
+        case Image(UIImage)
     }
 
     var editPost: Post?
@@ -69,6 +72,8 @@ public class PostEditingService: NSObject {
             switch section {
             case let .Text(text):
                 textEntries.append((index, text))
+            case let .Image(image):
+                imageDataEntries.append((index, (image, nil, nil)))
             case let .ImageData(image, data, type):
                 imageDataEntries.append((index, (image, data, type)))
             }

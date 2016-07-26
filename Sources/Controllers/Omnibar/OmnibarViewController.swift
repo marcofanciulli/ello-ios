@@ -245,10 +245,10 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
         for (index, imageURL) in downloads {
             PINRemoteImageManager.sharedImageManager().downloadImageWithURL(imageURL) { result in
                 if let image = result.image {
-                    regions[index] = .Image(image, nil, nil)
+                    regions[index] = .Image(image)
                 }
                 else if let animatedImage = result.animatedImage {
-                    regions[index] = .Image(animatedImage.posterImage, animatedImage.data, "image/gif")
+                    regions[index] = .ImageData(animatedImage.posterImage, animatedImage.data, "image/gif")
                 }
                 else {
                     regions[index] = .Error(imageURL)
@@ -332,7 +332,9 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
                 if cleanedText.characters.count > 0 {
                     content.append(.Text(ElloAttributedString.render(attributedText)))
                 }
-            case let .Image(image, data, contentType):
+            case let .Image(image):
+                content.append(.Image(image))
+            case let .ImageData(image, data, contentType):
                 content.append(.ImageData(image, data, contentType))
             default:
                 break // there are "non submittable" types from OmnibarRegion, like Spacer and ImageURL

@@ -240,7 +240,6 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="getStartedButton" destination="YsN-Mj-FcD" id="rDz-JU-tfR"/>
                         <outlet property="lovesLabel" destination="lcW-uY-4JN" id="tST-Ra-OrH"/>
                     </connections>
                 </viewController>

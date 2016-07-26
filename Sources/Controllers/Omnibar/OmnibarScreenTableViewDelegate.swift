@@ -12,7 +12,9 @@ extension OmnibarScreen: UITableViewDelegate, UITableViewDataSource {
             switch region {
             case let .AttributedText(attrdString):
                 return OmnibarTextCell.heightForText(attrdString, tableWidth: regionsTableView.frame.width, editing: reordering)
-            case let .Image(image, _, _):
+            case let .Image(image):
+                return OmnibarImageCell.heightForImage(image, tableWidth: regionsTableView.frame.width, editing: reordering)
+            case let .ImageData(image, _, _):
                 return OmnibarImageCell.heightForImage(image, tableWidth: regionsTableView.frame.width, editing: reordering)
             case .ImageURL:
                 return OmnibarImageDownloadCell.Size.height
@@ -36,14 +38,13 @@ extension OmnibarScreen: UITableViewDelegate, UITableViewDataSource {
                 let textCell = cell as! OmnibarTextCell
                 textCell.isFirst = path.row == 0
                 textCell.attributedText = attributedText
-            case let .Image(image, data, _):
+            case let .Image(image):
                 let imageCell = cell as! OmnibarImageCell
-                if let data = data {
-                    imageCell.omnibarAnimagedImage = FLAnimatedImage(animatedGIFData: data)
-                }
-                else {
-                    imageCell.omnibarImage = image
-                }
+                imageCell.omnibarImage = image
+                imageCell.reordering = reordering
+            case let .ImageData(_, data, _):
+                let imageCell = cell as! OmnibarImageCell
+                imageCell.omnibarAnimagedImage = FLAnimatedImage(animatedGIFData: data)
                 imageCell.reordering = reordering
             case let .Error(url):
                 let textCell = cell as! OmnibarErrorCell

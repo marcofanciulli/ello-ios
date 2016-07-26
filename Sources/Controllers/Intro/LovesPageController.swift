@@ -7,7 +7,6 @@ import Foundation
 class LovesPageController: IntroPageController {
 
     weak var lovesLabel: ElloLabel!
-    @IBOutlet weak var getStartedButton: GreenElloButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()

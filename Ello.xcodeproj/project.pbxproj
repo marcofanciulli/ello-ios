@@ -566,6 +566,7 @@
 		1D9CF9971D47F6C1004A95B7 /* 422_sparse.json in Resources */ = {isa = PBXBuildFile; fileRef = 1D9CF9961D47F6C1004A95B7 /* 422_sparse.json */; };
 		1D9CF9991D4800AE004A95B7 /* AffiliateLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9CF9981D4800AE004A95B7 /* AffiliateLinkViewController.swift */; };
 		1D9CF99B1D4800C4004A95B7 /* AffiliateLinkScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9CF99A1D4800C4004A95B7 /* AffiliateLinkScreen.swift */; };
+		1D9CF99D1D481F70004A95B7 /* OmnibarScreenAffiliateLinkControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9CF99C1D481F70004A95B7 /* OmnibarScreenAffiliateLinkControllerDelegate.swift */; };
 		1D9D170F1AE72372009841A4 /* UIViewControllerExtensionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9D170E1AE72372009841A4 /* UIViewControllerExtensionSpec.swift */; };
 		1D9D17111AE72394009841A4 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9D17101AE72394009841A4 /* UIViewController.swift */; };
 		1DA46D4E1B0BAE88003C5DFE /* OnboardingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA46D4D1B0BAE88003C5DFE /* OnboardingHeaderView.swift */; };
@@ -1397,6 +1398,7 @@
 		1D9CF9961D47F6C1004A95B7 /* 422_sparse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 422_sparse.json; sourceTree = "<group>"; };
 		1D9CF9981D4800AE004A95B7 /* AffiliateLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AffiliateLinkViewController.swift; sourceTree = "<group>"; };
 		1D9CF99A1D4800C4004A95B7 /* AffiliateLinkScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AffiliateLinkScreen.swift; sourceTree = "<group>"; };
+		1D9CF99C1D481F70004A95B7 /* OmnibarScreenAffiliateLinkControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmnibarScreenAffiliateLinkControllerDelegate.swift; sourceTree = "<group>"; };
 		1D9D170E1AE72372009841A4 /* UIViewControllerExtensionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensionSpec.swift; sourceTree = "<group>"; };
 		1D9D17101AE72394009841A4 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		1DA46D4D1B0BAE88003C5DFE /* OnboardingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingHeaderView.swift; sourceTree = "<group>"; };
@@ -2071,6 +2073,7 @@
 				1DF50C8F1C614C4400C62D89 /* OmnibarProtocols.swift */,
 				1DF50C901C614C4400C62D89 /* OmnibarRegion.swift */,
 				1DE176FB1B82626E00272145 /* OmnibarScreen.swift */,
+				1D9CF99C1D481F70004A95B7 /* OmnibarScreenAffiliateLinkControllerDelegate.swift */,
 				1DF50C961C614C6900C62D89 /* OmnibarScreenAutocomplete.swift */,
 				1DF50C911C614C4400C62D89 /* OmnibarScreenTableViewDelegate.swift */,
 				1D783A291B838FDD00BD6BF4 /* OmnibarTextCell.swift */,
@@ -4441,6 +4444,7 @@
 				F8D4F60E1AE82A1600AF4470 /* PushNotificationController.swift in Sources */,
 				122B30E31C6A3FBF00C1B9D8 /* UserAvatarCellModel.swift in Sources */,
 				1D3328501AE751D200446591 /* SearchScreen.swift in Sources */,
+				1D9CF99D1D481F70004A95B7 /* OmnibarScreenAffiliateLinkControllerDelegate.swift in Sources */,
 				1207C9851C73FEE000939ADB /* MultipartRequestBuilder.swift in Sources */,
 				122B30D51C6A3FBC00C1B9D8 /* Notification.swift in Sources */,
 				128D36B91A951F7400622833 /* ProfileHeaderCellPresenter.swift in Sources */,
