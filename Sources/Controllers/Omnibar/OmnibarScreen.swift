@@ -253,7 +253,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
         affiliateButton.setImages(.AddAffiliate)
         affiliateButton.setImage(.AddAffiliate, imageStyle: .Disabled, forState: .Disabled)
         affiliateButton.enabled = false
-        affiliateButton.addTarget(self, action: #selector(addImageAction), forControlEvents: .TouchUpInside)
+        affiliateButton.addTarget(self, action: #selector(affiliateButtonTapped), forControlEvents: .TouchUpInside)
 
         cancelButton.contentEdgeInsets = UIEdgeInsets(tops: 4, sides: 9.5)
         cancelButton.setImages(.X)
@@ -699,6 +699,8 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
         let canSubmit = !reordering && canPost()
         keyboardSubmitButton.enabled = canSubmit
         tabbarSubmitButton.enabled = canSubmit
+        let canAddAffiliateLink = !reordering && hasImage()
+        affiliateButton.enabled = canAddAffiliateLink
     }
 
 // MARK: Button Actions
@@ -734,6 +736,11 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
             stopEditing()
             delegate?.omnibarSubmitted(submitableRegions)
         }
+    }
+
+    public func affiliateButtonTapped() {
+        let vc = AffiliateLinkViewController()
+        delegate?.omnibarPresentController(vc)
     }
 
     func boldButtonTapped() {

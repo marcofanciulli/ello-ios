@@ -159,6 +159,7 @@ public struct InterfaceString {
         static let CreateCommentButton = NSLocalizedString("Comment", comment: "Comment")
         static let TooLongError = NSLocalizedString("Your text is too long.\n\nThe character limit is 5,000.", comment: "Post too long (maximum characters is 5000) error message")
         static let CreatedPost = NSLocalizedString("Post successfully created!", comment: "Post successfully created!")
+        static let SellYourWorkTitle = NSLocalizedString("Sell your work", comment: "Sell your work title")
     }
 
     public struct Loves {

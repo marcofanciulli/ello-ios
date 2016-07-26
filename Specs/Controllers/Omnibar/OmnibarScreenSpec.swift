@@ -328,45 +328,86 @@ class OmnibarScreenSpec: QuickSpec {
                 }
                 context("func updateButtons()") {
                     context("if posts are empty") {
-                        it("should disable posting") {
+                        beforeEach {
                             subject.regions = [OmnibarRegion]()
                             expect(subject.canPost()) == false
                             subject.updateButtons()
+                        }
+                        it("should disable posting") {
                             expect(subject.keyboardSubmitButton.enabled) == false
                             expect(subject.tabbarSubmitButton.enabled) == false
                         }
+                        it("should disable affiliateButton") {
+                            expect(subject.affiliateButton.enabled) == false
+                        }
                     }
-                        context("if posts are not empty") {
-                        it("should enable posting") {
+                    context("if posts have text") {
+                        beforeEach {
                             subject.regions = [.Text("test")]
                             subject.updateButtons()
+                        }
+                        it("should enable posting") {
                             expect(subject.keyboardSubmitButton.enabled) == true
                             expect(subject.tabbarSubmitButton.enabled) == true
                         }
-                        context("if reordering and posts are not empty") {
-                            }
-                        it("should disable posting") {
+                        it("should disable affiliateButton") {
+                            expect(subject.affiliateButton.enabled) == false
+                        }
+                    }
+                    context("if posts have text and images") {
+                        beforeEach {
+                            subject.regions = [.Text("test"), .Image(UIImage(), nil, nil)]
+                            subject.updateButtons()
+                        }
+                        it("should enable posting") {
+                            expect(subject.keyboardSubmitButton.enabled) == true
+                            expect(subject.tabbarSubmitButton.enabled) == true
+                        }
+                        it("should enable affiliateButton") {
+                            expect(subject.affiliateButton.enabled) == true
+                        }
+                    }
+                    context("if reordering and posts have text") {
+                        beforeEach {
                             subject.regions = [.Text("test")]
                             subject.reorderingTable(true)
                             subject.updateButtons()
+                        }
+                        it("should disable posting") {
                             expect(subject.keyboardSubmitButton.enabled) == false
                             expect(subject.tabbarSubmitButton.enabled) == false
                         }
-                    }
-
-                    context("if not reordering") {
                         it("should enable cancelling") {
+                            expect(subject.cancelButton.enabled) == true
+                        }
+                        it("should disable affiliate button") {
+                            expect(subject.affiliateButton.enabled) == false
+                        }
+                    }
+                    context("if reordering and posts have text and images") {
+                        beforeEach {
+                            subject.regions = [.Text("test"), .Image(UIImage(), nil, nil)]
+                            subject.reorderingTable(true)
+                            subject.updateButtons()
+                        }
+                        it("should disable posting") {
+                            expect(subject.keyboardSubmitButton.enabled) == false
+                            expect(subject.tabbarSubmitButton.enabled) == false
+                        }
+                        it("should enable cancelling") {
+                            expect(subject.cancelButton.enabled) == true
+                        }
+                        it("should disable affiliate button") {
+                            expect(subject.affiliateButton.enabled) == false
+                        }
+                    }
+                    context("if not reordering") {
+                        beforeEach {
                             subject.regions = [.Text("test")]
                             subject.reorderingTable(false)
                             subject.updateButtons()
-                            expect(subject.cancelButton.enabled) == true
                         }
-                    }
-                    context("if reordering and posts are not empty") {
                         it("should enable cancelling") {
-                            subject.regions = [.Text("test")]
-                            subject.reorderingTable(true)
-                            subject.updateButtons()
                             expect(subject.cancelButton.enabled) == true
                         }
                     }
