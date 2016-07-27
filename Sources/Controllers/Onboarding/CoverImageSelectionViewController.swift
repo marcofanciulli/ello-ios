@@ -127,7 +127,7 @@ extension CoverImageSelectionViewController {
         ProfileService().updateUserCoverImage(image, success: { (url, _) in
             ElloHUD.hideLoadingHud()
             if let user = self.currentUser {
-                let asset = Asset(image: image, url: url)
+                let asset = Asset(url: url, image: image)
                 user.coverImage = asset
             }
 

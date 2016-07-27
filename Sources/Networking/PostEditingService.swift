@@ -227,7 +227,7 @@ public class PostEditingService: NSObject {
                             imageRegion.url = url
 
                             if let url = url {
-                                let asset = Asset(image: image, url: url)
+                                let asset = Asset(url: url, image: image)
                                 ElloLinkedStore.sharedInstance.setObject(asset, forKey: asset.id, inCollection: MappingType.AssetsType.rawValue)
                                 imageRegion.addLinkObject("assets", key: asset.id, collection: MappingType.AssetsType.rawValue)
                             }

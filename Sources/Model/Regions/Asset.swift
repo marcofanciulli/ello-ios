@@ -94,15 +94,15 @@ public final class Asset: JSONAble {
         self.hdpi = hdpi
     }
 
-    public convenience init(image: UIImage, url: NSURL) {
+    public convenience init(url: NSURL, image: UIImage) {
         self.init(id: NSUUID().UUIDString)
 
-        let attachment = Attachment(url: url)
-        attachment.width = Int(image.size.width)
-        attachment.height = Int(image.size.height)
-        attachment.image = image
+        let optimized = Attachment(url: url)
+        optimized.width = Int(image.size.width)
+        optimized.height = Int(image.size.height)
+        optimized.image = image
 
-        self.optimized = attachment
+        self.optimized = optimized
     }
 
     public init(id: String)
