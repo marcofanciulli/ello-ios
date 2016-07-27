@@ -209,17 +209,7 @@ public class PostEditingService: NSObject {
                             imageRegion.url = url
 
                             if let url = url {
-                                let asset = Asset(url: url)
-                                asset.optimized?.type = contentType
-                                asset.optimized?.size = data.length
-                                asset.optimized?.width = Int(image.size.width)
-                                asset.optimized?.height = Int(image.size.height)
-
-                                let attachment = Attachment(url: url)
-                                attachment.width = Int(image.size.width)
-                                attachment.height = Int(image.size.height)
-                                attachment.image = image
-                                asset.hdpi = attachment
+                                let asset = Asset(url: url, gifData: data, posterImage: image)
 
                                 ElloLinkedStore.sharedInstance.setObject(asset, forKey: asset.id, inCollection: MappingType.AssetsType.rawValue)
                                 imageRegion.addLinkObject("assets", key: asset.id, collection: MappingType.AssetsType.rawValue)

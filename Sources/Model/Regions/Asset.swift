@@ -77,6 +77,23 @@ public final class Asset: JSONAble {
         self.optimized = attachment
     }
 
+    public convenience init(url: NSURL, gifData: NSData, posterImage: UIImage) {
+        self.init(id: NSUUID().UUIDString)
+
+        let optimized = Attachment(url: url)
+        optimized.type = "image/gif"
+        optimized.size = gifData.length
+        optimized.width = Int(posterImage.size.width)
+        optimized.height = Int(posterImage.size.height)
+        self.optimized = optimized
+
+        let hdpi = Attachment(url: url)
+        hdpi.width = Int(posterImage.size.width)
+        hdpi.height = Int(posterImage.size.height)
+        hdpi.image = posterImage
+        self.hdpi = hdpi
+    }
+
     public convenience init(image: UIImage, url: NSURL) {
         self.init(id: NSUUID().UUIDString)
 
