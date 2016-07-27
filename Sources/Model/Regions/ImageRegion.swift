@@ -83,8 +83,9 @@ public final class ImageRegion: JSONAble, Regionable {
     }
 
     public func toJSON() -> [String: AnyObject] {
-        if let url: String = self.url?.absoluteString {
-            return [
+        var json: [String: AnyObject]
+        if let url = self.url?.absoluteString {
+            json = [
                 "kind": self.kind,
                 "data": [
                     "alt": alt ?? "",
@@ -93,10 +94,15 @@ public final class ImageRegion: JSONAble, Regionable {
             ]
         }
         else {
-            return [
+            json = [
                 "kind": self.kind,
                 "data": [:]
             ]
         }
+
+        if let affiliateURL = affiliateURL {
+            json["link_url"] = affiliateURL
+        }
+        return json
     }
 }
