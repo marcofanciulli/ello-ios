@@ -567,6 +567,8 @@
 		1D9CF9991D4800AE004A95B7 /* AffiliateLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9CF9981D4800AE004A95B7 /* AffiliateLinkViewController.swift */; };
 		1D9CF99B1D4800C4004A95B7 /* AffiliateLinkScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9CF99A1D4800C4004A95B7 /* AffiliateLinkScreen.swift */; };
 		1D9CF99D1D481F70004A95B7 /* OmnibarScreenAffiliateLinkControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9CF99C1D481F70004A95B7 /* OmnibarScreenAffiliateLinkControllerDelegate.swift */; };
+		1D9CF9A01D4925BE004A95B7 /* OmnibarCacheData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9CF99E1D4925BE004A95B7 /* OmnibarCacheData.swift */; };
+		1D9CF9A11D4925BE004A95B7 /* OmnibarImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9CF99F1D4925BE004A95B7 /* OmnibarImageData.swift */; };
 		1D9D170F1AE72372009841A4 /* UIViewControllerExtensionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9D170E1AE72372009841A4 /* UIViewControllerExtensionSpec.swift */; };
 		1D9D17111AE72394009841A4 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9D17101AE72394009841A4 /* UIViewController.swift */; };
 		1DA46D4E1B0BAE88003C5DFE /* OnboardingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA46D4D1B0BAE88003C5DFE /* OnboardingHeaderView.swift */; };
@@ -1399,6 +1401,8 @@
 		1D9CF9981D4800AE004A95B7 /* AffiliateLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AffiliateLinkViewController.swift; sourceTree = "<group>"; };
 		1D9CF99A1D4800C4004A95B7 /* AffiliateLinkScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AffiliateLinkScreen.swift; sourceTree = "<group>"; };
 		1D9CF99C1D481F70004A95B7 /* OmnibarScreenAffiliateLinkControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmnibarScreenAffiliateLinkControllerDelegate.swift; sourceTree = "<group>"; };
+		1D9CF99E1D4925BE004A95B7 /* OmnibarCacheData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmnibarCacheData.swift; sourceTree = "<group>"; };
+		1D9CF99F1D4925BE004A95B7 /* OmnibarImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmnibarImageData.swift; sourceTree = "<group>"; };
 		1D9D170E1AE72372009841A4 /* UIViewControllerExtensionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensionSpec.swift; sourceTree = "<group>"; };
 		1D9D17101AE72394009841A4 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		1DA46D4D1B0BAE88003C5DFE /* OnboardingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingHeaderView.swift; sourceTree = "<group>"; };
@@ -2066,8 +2070,10 @@
 			children = (
 				1D9CF99A1D4800C4004A95B7 /* AffiliateLinkScreen.swift */,
 				1D9CF9981D4800AE004A95B7 /* AffiliateLinkViewController.swift */,
+				1D9CF99E1D4925BE004A95B7 /* OmnibarCacheData.swift */,
 				1DB286E51B96021F00D03516 /* OmnibarErrorCell.swift */,
 				1D783A281B838FDD00BD6BF4 /* OmnibarImageCell.swift */,
+				1D9CF99F1D4925BE004A95B7 /* OmnibarImageData.swift */,
 				1D066FF41B8BAEC5002B303D /* OmnibarImageDownloadCell.swift */,
 				1DF50C8E1C614C4400C62D89 /* OmnibarImagePickerExtension.swift */,
 				1DF50C8F1C614C4400C62D89 /* OmnibarProtocols.swift */,
@@ -4275,6 +4281,7 @@
 				1D5A90201D3D74B300C2AEFF /* ElloAPISharingHeaders.swift in Sources */,
 				1D807D9C1B0517F1009B0F71 /* FollowAllCell.swift in Sources */,
 				12F6AE2F1A43390900493660 /* NumberExtensions.swift in Sources */,
+				1D9CF9A01D4925BE004A95B7 /* OmnibarCacheData.swift in Sources */,
 				1D3128C01B557BD500E3D5B6 /* Onboarding.swift in Sources */,
 				1DF806531CDD1A42002D60AD /* Username.swift in Sources */,
 				122B19051A867C7D00247A05 /* StreamTextCellHTML.swift in Sources */,
@@ -4471,6 +4478,7 @@
 				1DE87FC61BB2FFB8007A7325 /* Mentionables.swift in Sources */,
 				122B19031A867C7D00247A05 /* StreamTextCell.swift in Sources */,
 				1D2F65B11D1870020099D036 /* DiscoverAllCategoriesScreen.swift in Sources */,
+				1D9CF9A11D4925BE004A95B7 /* OmnibarImageData.swift in Sources */,
 				1DADC57A1AF449B3000DAC88 /* ElloWebBrowserViewController.swift in Sources */,
 				122DEA201AB0A024005DF1F1 /* NSFileManagerExtensions.swift in Sources */,
 				1267C7391BA232530000D809 /* MutableBox.swift in Sources */,

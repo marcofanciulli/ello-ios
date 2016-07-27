@@ -30,12 +30,34 @@ public func == (lhs: PostEditingService.PostContentRegion, rhs: PostEditingServi
 }
 
 
+public struct ImageRegionData {
+    let image: UIImage
+    let data: NSData?
+    let contentType: String?
+    let affiliateURL: NSURL?
+
+    public init(image: UIImage, affiliateURL: NSURL?) {
+        self.image = image
+        self.data = nil
+        self.contentType = nil
+        self.affiliateURL = affiliateURL
+    }
+
+    public init(image: UIImage, data: NSData, contentType: String, affiliateURL: NSURL?) {
+        self.image = image
+        self.data = data
+        self.contentType = contentType
+        self.affiliateURL = affiliateURL
+    }
+
+}
+
+
 public class PostEditingService: NSObject {
     // this can return either a Post or Comment
     typealias CreatePostSuccessCompletion = (post: AnyObject) -> Void
     typealias UploadImagesSuccessCompletion = ([(Int, ImageRegion)]) -> Void
 
-    public typealias ImageData = (UIImage, NSData?, String?)
     public enum PostContentRegion {
         case Text(String)
         case ImageData(UIImage, NSData, String)
@@ -62,9 +84,9 @@ public class PostEditingService: NSObject {
     }
 
     // rawSections is String or UIImage objects
-    func create(content rawContent: [PostContentRegion], success: CreatePostSuccessCompletion, failure: ElloFailureCompletion) {
+    func create(content rawContent: [PostContentRegion], affiliateURL: NSURL?, success: CreatePostSuccessCompletion, failure: ElloFailureCompletion) {
         var textEntries = [(Int, String)]()
-        var imageDataEntries = [(Int, ImageData)]()
+        var imageDataEntries = [(Int, ImageRegionData)]()
 
         // if necessary, the rawSource should be converted to API-ready content,
         // e.g. entitizing Strings and adding HTML markup to NSAttributedStrings
@@ -73,9 +95,9 @@ public class PostEditingService: NSObject {
             case let .Text(text):
                 textEntries.append((index, text))
             case let .Image(image):
-                imageDataEntries.append((index, (image, nil, nil)))
+                imageDataEntries.append((index, ImageRegionData(image: image, affiliateURL: affiliateURL)))
             case let .ImageData(image, data, type):
-                imageDataEntries.append((index, (image, data, type)))
+                imageDataEntries.append((index, ImageRegionData(image: image, data: data, contentType: type, affiliateURL: affiliateURL)))
             }
         }
 
@@ -158,7 +180,7 @@ public class PostEditingService: NSObject {
     // Another way to upload the images would be to generate one AmazonCredentials
     // object, and pass that to the uploader.  The uploader would need to
     // generate unique image names in that case.
-    func uploadImages(imageEntries: [(Int, ImageData)], success: UploadImagesSuccessCompletion, failure: ElloFailureCompletion) {
+    func uploadImages(imageEntries: [(Int, ImageRegionData)], success: UploadImagesSuccessCompletion, failure: ElloFailureCompletion) {
         var uploaded = [(Int, ImageRegion)]()
 
         // if any upload fails, the entire post creationg fails
@@ -183,7 +205,8 @@ public class PostEditingService: NSObject {
                     return
                 }
 
-                let (imageIndex, (image, data, contentType)) = dataEntry
+                let (imageIndex, imageRegionData) = dataEntry
+                let (image, data, contentType) = (imageRegionData.image, imageRegionData.data, imageRegionData.contentType)
 
                 let filename: String
                 switch contentType ?? "" {

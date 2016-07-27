@@ -7,11 +7,11 @@ import Photos
 
 public struct AssetsToRegions {
 
-    public static func processPHAssets(assets: [PHAsset], completion: ([PostEditingService.ImageData]) -> Void) {
+    public static func processPHAssets(assets: [PHAsset], completion: ([ImageRegionData]) -> Void) {
         nextPHAsset(assets, stack: [], completion: completion)
     }
 
-    private static func nextPHAsset(assets: [PHAsset], stack: [PostEditingService.ImageData], completion: ([PostEditingService.ImageData]) -> Void) {
+    private static func nextPHAsset(assets: [PHAsset], stack: [ImageRegionData], completion: ([ImageRegionData]) -> Void) {
         guard let asset = assets.first else {
             completion(stack)
             return
@@ -31,12 +31,12 @@ public struct AssetsToRegions {
             }
 
             if UIImage.isGif(imageData) {
-                newStack.append((image, imageData, "image/gif"))
+                newStack.append(ImageRegionData(image: image, data: imageData, contentType: "image/gif", affiliateURL: nil))
                 done()
             }
             else {
                 image.copyWithCorrectOrientationAndSize() { image in
-                    newStack.append((image, nil, nil))
+                    newStack.append(ImageRegionData(image: image, affiliateURL: nil))
                     done()
                 }
             }

@@ -8,6 +8,9 @@ public protocol OmnibarScreenDelegate: class {
     func omnibarPresentController(controller: UIViewController)
     func omnibarDismissController(controller: UIViewController)
     func omnibarSubmitted(regions: [OmnibarRegion])
+
+    func submitAffiliateLink(url: NSURL)
+    func clearAffiliateLink()
 }
 
 public protocol OmnibarScreenProtocol: class {

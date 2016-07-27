@@ -7,7 +7,7 @@ import SwiftyUserDefaults
 import PINRemoteImage
 
 
-public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegate {
+public class OmnibarViewController: BaseElloViewController {
     var keyboardWillShowObserver: NotificationObserver?
     var keyboardWillHideObserver: NotificationObserver?
 
@@ -22,6 +22,7 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
     var editComment: ElloComment?
     var rawEditBody: [Regionable]?
     var defaultText: String?
+    var affiliateURL: NSURL?
     var canGoBack: Bool = true {
         didSet {
             if isViewLoaded() {
@@ -83,15 +84,15 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
         self.defaultText = defaultText
     }
 
-    public func omnibarDataName() -> String? {
-        if let post = parentPost {
-            return "omnibar_v2_comment_\(post.repostId ?? post.id)"
-        }
-        else if editPost != nil || editComment != nil {
-            return nil
-        }
-        else {
-            return "omnibar_v2_post"
+    override func didSetCurrentUser() {
+        super.didSetCurrentUser()
+        if isViewLoaded() {
+            if let cachedImage = TemporaryCache.load(.Avatar) {
+                screen.avatarImage = cachedImage
+            }
+            else {
+                screen.avatarURL = currentUser?.avatarURL()
+            }
         }
     }
 
@@ -144,7 +145,7 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
             {
 
 //MARK: Warning - not sure if this is working as expected
-                if let omnibarData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? OmnibarData {
+                if let omnibarData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? OmnibarCacheData {
                     let regions: [OmnibarRegion] = omnibarData.regions.flatMap { obj in
                         if let region = OmnibarRegion.fromRaw(obj) {
                             return region
@@ -221,9 +222,9 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
     }
 
     func prepareScreenForEditing(content: [Regionable]) {
-        var regions = [OmnibarRegion]()
-        var downloads = [(Int, NSURL)]()
-        for region in content {
+        var regions: [OmnibarRegion] = []
+        var downloads: [(Int, NSURL)] = []  // the 'index' is used to replace the ImageURL region after it is downloaded
+        for (index, region) in content.enumerate() {
             if let region = region as? TextRegion,
                 attrdText = ElloAttributedString.parse(region.content)
             {
@@ -232,7 +233,7 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
             else if let region = region as? ImageRegion,
                 url = region.url
             {
-                downloads.append((regions.count, url))
+                downloads.append((index, url))
                 regions.append(.ImageURL(url))
             }
         }
@@ -254,7 +255,7 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
                     regions[index] = .Error(imageURL)
                 }
                 let tmp = regions
-                nextTick {
+                inForeground {
                     self.screen.regions = tmp
                     completed()
                 }
@@ -270,17 +271,21 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
         screen.keyboardWillHide()
     }
 
-    override func didSetCurrentUser() {
-        super.didSetCurrentUser()
-        if isViewLoaded() {
-            if let cachedImage = TemporaryCache.load(.Avatar) {
-                screen.avatarImage = cachedImage
-            }
-            else {
-                screen.avatarURL = currentUser?.avatarURL()
-            }
-        }
+    private func goToPreviousTab() {
+        elloTabBarController?.selectedTab = previousTab
     }
+
+}
+
+extension OmnibarViewController {
+
+    public class func canEditRegions(regions: [Regionable]?) -> Bool {
+        return OmnibarScreen.canEditRegions(regions)
+    }
+}
+
+
+extension OmnibarViewController: OmnibarScreenDelegate {
 
     public func omnibarCancel() {
         if canGoBack {
@@ -291,7 +296,7 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
                         dataRegions.append(rawRegion)
                     }
                 }
-                let omnibarData = OmnibarData()
+                let omnibarData = OmnibarCacheData()
                 omnibarData.regions = dataRegions
                 let data = NSKeyedArchiver.archivedDataWithRootObject(omnibarData)
                 Tmp.write(data, to: fileName)
@@ -317,6 +322,48 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
         }
     }
 
+    public func omnibarPresentController(controller: UIViewController) {
+        if !(controller is AlertViewController) {
+            UIApplication.sharedApplication().statusBarStyle = .LightContent
+        }
+        self.presentViewController(controller, animated: true, completion: nil)
+    }
+
+    public func omnibarPushController(controller: UIViewController) {
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    public func omnibarDismissController(controller: UIViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    public func omnibarSubmitted(regions: [OmnibarRegion]) {
+        let content = generatePostContent(regions)
+        guard content.count > 0 else {
+            return
+        }
+
+        if let authorId = currentUser?.id {
+            startPosting(authorId, content)
+        }
+        else {
+            contentCreationFailed(InterfaceString.App.LoggedOutError)
+        }
+    }
+
+    public func submitAffiliateLink(url: NSURL) {
+        affiliateURL = url
+    }
+
+    public func clearAffiliateLink() {
+        affiliateURL = nil
+    }
+
+}
+
+// MARK: Posting the content to API
+extension OmnibarViewController {
+
     public func generatePostContent(regions: [OmnibarRegion]) -> [PostEditingService.PostContentRegion] {
         var content: [PostEditingService.PostContentRegion] = []
         for region in regions {
@@ -341,20 +388,6 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
             }
         }
         return content
-    }
-
-    public func omnibarSubmitted(regions: [OmnibarRegion]) {
-        let content = generatePostContent(regions)
-        guard content.count > 0 else {
-            return
-        }
-
-        if let authorId = currentUser?.id {
-            startPosting(authorId, content)
-        }
-        else {
-            contentCreationFailed(InterfaceString.App.LoggedOutError)
-        }
     }
 
     private func startPosting(authorId: String, _ content: [PostEditingService.PostContentRegion]) {
@@ -384,6 +417,7 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
         screen.interactionEnabled = false
         service.create(
             content: content,
+            affiliateURL: affiliateURL,
             success: { postOrComment in
                 ElloHUD.hideLoadingHudInView(self.view)
                 self.screen.interactionEnabled = true
@@ -458,10 +492,6 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
         }
     }
 
-    private func goToPreviousTab() {
-        elloTabBarController?.selectedTab = previousTab
-    }
-
     func contentCreationFailed(errorMessage: String) {
         let contentType: ContentType
         if parentPost == nil && editComment == nil {
@@ -474,77 +504,18 @@ public class OmnibarViewController: BaseElloViewController, OmnibarScreenDelegat
         screen.reportError("Could not create \(contentType.rawValue)", errorMessage: errorMessage)
     }
 
-    public func omnibarPresentController(controller: UIViewController) {
-        if !(controller is AlertViewController) {
-            UIApplication.sharedApplication().statusBarStyle = .LightContent
-        }
-        self.presentViewController(controller, animated: true, completion: nil)
-    }
-
-    public func omnibarPushController(controller: UIViewController) {
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
-
-    public func omnibarDismissController(controller: UIViewController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-
 }
 
 extension OmnibarViewController {
-
-    public class func canEditRegions(regions: [Regionable]?) -> Bool {
-        return OmnibarScreen.canEditRegions(regions)
-    }
-}
-
-
-public class OmnibarImageData: NSObject, NSCoding {
-    public var image: UIImage?
-    public var data: NSData?
-    public var type: NSString?
-
-// MARK: NSCoding
-
-    public func encodeWithCoder(encoder: NSCoder) {
-        if let image = image {
-            encoder.encodeObject(image, forKey: "image")
+    public func omnibarDataName() -> String? {
+        if let post = parentPost {
+            return "omnibar_v2_comment_\(post.repostId ?? post.id)"
         }
-        if let data = data {
-            encoder.encodeObject(data, forKey: "data")
+        else if editPost != nil || editComment != nil {
+            return nil
         }
-        if let type = type {
-            encoder.encodeObject(type, forKey: "type")
+        else {
+            return "omnibar_v2_post"
         }
     }
-
-    required public init?(coder: NSCoder) {
-        let decoder = Coder(coder)
-        image = decoder.decodeKey("image")
-        data = decoder.decodeKey("data")
-        type = decoder.decodeKey("type")
-        super.init()
-    }
-}
-
-public class OmnibarData: NSObject, NSCoding {
-    public var regions: [NSObject]
-
-    public override init() {
-        regions = [NSObject]()
-        super.init()
-    }
-
-// MARK: NSCoding
-
-    public func encodeWithCoder(encoder: NSCoder) {
-        encoder.encodeObject(regions, forKey: "regions")
-    }
-
-    required public init?(coder: NSCoder) {
-        let decoder = Coder(coder)
-        regions = decoder.decodeKey("regions")
-        super.init()
-    }
-
 }
