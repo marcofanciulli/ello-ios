@@ -5,11 +5,11 @@
 extension OmnibarScreen: AffiliateLinkControllerDelegate {
 
     public func submitAffiliateLink(url: NSURL) {
-        delegate?.submitAffiliateLink(url)
+        affiliateURL = url
     }
 
     public func clearAffiliateLink() {
-        delegate?.clearAffiliateLink()
+        affiliateURL = nil
     }
 
 }

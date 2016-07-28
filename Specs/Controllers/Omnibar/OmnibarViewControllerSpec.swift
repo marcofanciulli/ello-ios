@@ -176,7 +176,7 @@ class OmnibarViewControllerSpec: QuickSpec {
                         screen = OmnibarMockScreen()
                         subject.screen = screen
                         showController(subject)
-                        subject.omnibarSubmitted(regions)
+                        subject.omnibarSubmitted(regions, affiliateURL: nil)
 
                         expect(screen.interactionEnabled) == false
                         ElloProvider.sharedProvider = ElloProvider.StubbingProvider()
@@ -191,7 +191,7 @@ class OmnibarViewControllerSpec: QuickSpec {
                         screen = OmnibarMockScreen()
                         subject.screen = screen
                         showController(subject)
-                        subject.omnibarSubmitted(regions)
+                        subject.omnibarSubmitted(regions, affiliateURL: nil)
 
                         expect(screen.interactionEnabled) == true
                     }

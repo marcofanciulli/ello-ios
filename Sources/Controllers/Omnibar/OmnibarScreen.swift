@@ -44,6 +44,9 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
     }
 
     public typealias IndexedRegion = (Int?, OmnibarRegion)
+    public var affiliateURL: NSURL? {
+        didSet { updateButtons() }
+    }
     public var regions: [OmnibarRegion] {
         set {
             var regions = newValue
@@ -247,7 +250,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
 
     // buttons that make up the "toolbar"
     private func setupToolbarButtons() {
-        affiliateButton.contentEdgeInsets = UIEdgeInsets(tops: 4, sides: 11)
+        affiliateButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 11, bottom: 4, right: 8)
         affiliateButton.adjustsImageWhenDisabled = false
         affiliateButton.adjustsImageWhenHighlighted = false
         affiliateButton.setImages(.AddAffiliate)
@@ -686,21 +689,35 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
     }
 
     private func resetEditor() {
-        hideAutoComplete(textView)
-        stopEditing()
         textView.text = ""
-        updateButtons()
         submitableRegions = [.Text("")]
         editableRegions = generateEditableRegions(submitableRegions)
+        hideAutoComplete(textView)
+        stopEditing()
+        updateButtons()
         regionsTableView.reloadData()
     }
 
     public func updateButtons() {
+        let canAddAffiliateLink = !reordering && hasImage()
+        if !canAddAffiliateLink && affiliateURL != nil {
+            affiliateURL = nil  // this calls updateButtons() again
+            return
+        }
+
         let canSubmit = !reordering && canPost()
         keyboardSubmitButton.enabled = canSubmit
         tabbarSubmitButton.enabled = canSubmit
-        let canAddAffiliateLink = !reordering && hasImage()
         affiliateButton.enabled = canAddAffiliateLink
+
+        if affiliateURL == nil {
+            affiliateButton.setImages(.AddAffiliate)
+            affiliateButton.setImage(.AddAffiliate, imageStyle: .Disabled, forState: .Disabled)
+        }
+        else {
+            affiliateButton.setImages(.SetAffiliate)
+            affiliateButton.setImage(nil, forState: .Disabled)
+        }
     }
 
 // MARK: Button Actions
@@ -734,12 +751,12 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
     public func submitAction() {
         if canPost() {
             stopEditing()
-            delegate?.omnibarSubmitted(submitableRegions)
+            delegate?.omnibarSubmitted(submitableRegions, affiliateURL: affiliateURL)
         }
     }
 
     public func affiliateButtonTapped() {
-        let vc = AffiliateLinkViewController()
+        let vc = AffiliateLinkViewController(affiliateURL: affiliateURL)
         vc.delegate = self
         delegate?.omnibarPresentController(vc)
     }

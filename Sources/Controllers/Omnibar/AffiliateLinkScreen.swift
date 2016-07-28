@@ -7,6 +7,7 @@ import SnapKit
 public protocol AffiliateLinkDelegate: class {
     func closeModal()
     func submitLink(url: NSURL)
+    func clearLink()
 }
 
 public class AffiliateLinkScreen: UIView {
@@ -14,8 +15,32 @@ public class AffiliateLinkScreen: UIView {
     let titleLabel = UILabel()
     let productLinkField = ElloTextField()
     let submitButton = GreenElloButton()
+    let removeButton = GreenElloButton()
     let cancelLabel = UILabel()
+
+    var submitButtonTrailingRight: Constraint?
+    var submitButtonTrailingRemove: Constraint?
+
     weak var delegate: AffiliateLinkDelegate?
+
+    var affiliateURL: NSURL? {
+        get { return NSURL(string: productLinkField.text ?? "") }
+        set {
+            if let affiliateURL = newValue {
+                productLinkField.text = affiliateURL.absoluteString
+                submitButtonTrailingRight?.deactivate()
+                submitButtonTrailingRemove?.activate()
+                removeButton.hidden = false
+            }
+            else {
+                productLinkField.text = ""
+                submitButtonTrailingRight?.activate()
+                submitButtonTrailingRemove?.deactivate()
+                removeButton.hidden = true
+            }
+            productLinkDidChange()
+        }
+    }
 
     public required override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,11 +74,13 @@ public class AffiliateLinkScreen: UIView {
         productLinkField.returnKeyType = .Default
 
         submitButton.enabled = false
+        removeButton.hidden = true
     }
 
     private func bindActions() {
         backgroundButton.addTarget(self, action: #selector(closeModal), forControlEvents: .TouchUpInside)
         submitButton.addTarget(self, action: #selector(submitLink), forControlEvents: .TouchUpInside)
+        removeButton.addTarget(self, action: #selector(removeLink), forControlEvents: .TouchUpInside)
         productLinkField.addTarget(self, action: #selector(productLinkDidChange), forControlEvents: .EditingChanged)
     }
 
@@ -61,6 +88,7 @@ public class AffiliateLinkScreen: UIView {
         titleLabel.text = InterfaceString.Omnibar.SellYourWorkTitle
         productLinkField.placeholder = InterfaceString.Omnibar.ProductLinkPlaceholder
         submitButton.setTitle(InterfaceString.Submit, forState: .Normal)
+        removeButton.setTitle(InterfaceString.Delete, forState: .Normal)
         cancelLabel.text = InterfaceString.Cancel
     }
 
@@ -69,6 +97,7 @@ public class AffiliateLinkScreen: UIView {
         addSubview(titleLabel)
         addSubview(productLinkField)
         addSubview(submitButton)
+        addSubview(removeButton)
         addSubview(cancelLabel)
 
         backgroundButton.snp_makeConstraints { make in
@@ -90,7 +119,16 @@ public class AffiliateLinkScreen: UIView {
         submitButton.snp_makeConstraints { make in
             make.top.equalTo(productLinkField.snp_bottom).offset(10)
             make.leading.equalTo(self).offset(10)
-            make.trailing.equalTo(self).offset(-10)
+            submitButtonTrailingRight = make.trailing.equalTo(self).offset(-10).constraint
+            submitButtonTrailingRemove = make.trailing.equalTo(removeButton.snp_leading).offset(-10).constraint
+            make.height.equalTo(60)
+        }
+        submitButtonTrailingRemove!.deactivate()
+
+        removeButton.snp_makeConstraints { make in
+            make.top.equalTo(productLinkField.snp_bottom).offset(10)
+            make.width.equalTo(self).dividedBy(2).offset(-20)
+            make.trailing.equalTo(self).offset(-10).constraint
             make.height.equalTo(60)
         }
 
@@ -143,6 +181,11 @@ public class AffiliateLinkScreen: UIView {
         if let url = url {
             delegate?.submitLink(url)
         }
+        closeModal()
+    }
+
+    func removeLink() {
+        delegate?.clearLink()
         closeModal()
     }
 }

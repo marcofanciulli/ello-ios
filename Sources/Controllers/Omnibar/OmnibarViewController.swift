@@ -22,7 +22,6 @@ public class OmnibarViewController: BaseElloViewController {
     var editComment: ElloComment?
     var rawEditBody: [Regionable]?
     var defaultText: String?
-    var affiliateURL: NSURL?
     var canGoBack: Bool = true {
         didSet {
             if isViewLoaded() {
@@ -337,26 +336,18 @@ extension OmnibarViewController: OmnibarScreenDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    public func omnibarSubmitted(regions: [OmnibarRegion]) {
+    public func omnibarSubmitted(regions: [OmnibarRegion], affiliateURL: NSURL?) {
         let content = generatePostContent(regions)
         guard content.count > 0 else {
             return
         }
 
         if let authorId = currentUser?.id {
-            startPosting(authorId, content)
+            startPosting(authorId, content, affiliateURL: affiliateURL)
         }
         else {
             contentCreationFailed(InterfaceString.App.LoggedOutError)
         }
-    }
-
-    public func submitAffiliateLink(url: NSURL) {
-        affiliateURL = url
-    }
-
-    public func clearAffiliateLink() {
-        affiliateURL = nil
     }
 
 }
@@ -390,7 +381,7 @@ extension OmnibarViewController {
         return content
     }
 
-    private func startPosting(authorId: String, _ content: [PostEditingService.PostContentRegion]) {
+    private func startPosting(authorId: String, _ content: [PostEditingService.PostContentRegion], affiliateURL: NSURL?) {
         let service: PostEditingService
         let didGoToPreviousTab: Bool
 

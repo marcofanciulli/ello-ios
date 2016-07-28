@@ -206,7 +206,7 @@ public class PostEditingService: NSObject {
                 }
 
                 let (imageIndex, imageRegionData) = dataEntry
-                let (image, data, contentType) = (imageRegionData.image, imageRegionData.data, imageRegionData.contentType)
+                let (image, data, contentType, affiliateURL) = (imageRegionData.image, imageRegionData.data, imageRegionData.contentType, imageRegionData.affiliateURL)
 
                 let filename: String
                 switch contentType ?? "" {
@@ -230,6 +230,7 @@ public class PostEditingService: NSObject {
                         success: { url in
                             let imageRegion = ImageRegion(alt: filename)
                             imageRegion.url = url
+                            imageRegion.affiliateURL = affiliateURL
 
                             if let url = url {
                                 let asset = Asset(url: url, gifData: data, posterImage: image)
@@ -248,6 +249,7 @@ public class PostEditingService: NSObject {
                         success: { url in
                             let imageRegion = ImageRegion(alt: filename)
                             imageRegion.url = url
+                            imageRegion.affiliateURL = affiliateURL
 
                             if let url = url {
                                 let asset = Asset(url: url, image: image)

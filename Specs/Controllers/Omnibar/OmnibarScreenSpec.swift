@@ -26,7 +26,7 @@ class OmnibarScreenMockDelegate : OmnibarScreenDelegate {
     func omnibarDismissController(controller : UIViewController) {
         didDismissController = true
     }
-    func omnibarSubmitted(regions: [OmnibarRegion]) {
+    func omnibarSubmitted(regions: [OmnibarRegion], affiliateURL: NSURL?) {
         submitted = true
     }
 }
