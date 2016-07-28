@@ -699,8 +699,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
     }
 
     public func updateButtons() {
-        let canAddAffiliateLink = !reordering && hasImage()
-        if !canAddAffiliateLink && affiliateURL != nil {
+        if !hasImage() && affiliateURL != nil {
             affiliateURL = nil  // this calls updateButtons() again
             return
         }
@@ -708,15 +707,15 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
         let canSubmit = !reordering && canPost()
         keyboardSubmitButton.enabled = canSubmit
         tabbarSubmitButton.enabled = canSubmit
+
+        let canAddAffiliateLink = !reordering && hasImage()
         affiliateButton.enabled = canAddAffiliateLink
 
         if affiliateURL == nil {
             affiliateButton.setImages(.AddAffiliate)
-            affiliateButton.setImage(.AddAffiliate, imageStyle: .Disabled, forState: .Disabled)
         }
         else {
             affiliateButton.setImages(.SetAffiliate)
-            affiliateButton.setImage(nil, forState: .Disabled)
         }
     }
 
