@@ -30,6 +30,9 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
 
     var autoCompleteVC = AutoCompleteViewController()
 
+    public var isComment: Bool = false {
+        didSet { updateButtons() }
+    }
     public var isEditing = false
     public var reordering = false
 
@@ -710,6 +713,7 @@ public class OmnibarScreen: UIView, OmnibarScreenProtocol {
 
         let canAddAffiliateLink = !reordering && hasImage()
         affiliateButton.enabled = canAddAffiliateLink
+        affiliateButton.hidden = isComment
 
         if affiliateURL == nil {
             affiliateButton.setImages(.AddAffiliate)

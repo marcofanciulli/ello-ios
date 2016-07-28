@@ -12,6 +12,8 @@ public protocol OmnibarScreenDelegate: class {
 
 public protocol OmnibarScreenProtocol: class {
     var delegate: OmnibarScreenDelegate? { get set }
+    var isComment: Bool { get set }
+    var affiliateURL: NSURL? { get set }
     var title: String { get set }
     var submitTitle: String { get set }
     var regions: [OmnibarRegion] { get set }

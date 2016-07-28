@@ -55,7 +55,7 @@ public class OmnibarViewController: BaseElloViewController {
         PostService().loadComment(comment.postId, commentId: comment.id, success: { (comment, _) in
             self.rawEditBody = comment.body
             if let body = comment.body where self.isViewLoaded() {
-                self.prepareScreenForEditing(body)
+                self.prepareScreenForEditing(body, isComment: true)
             }
         })
     }
@@ -68,7 +68,7 @@ public class OmnibarViewController: BaseElloViewController {
             success: { (post, _) in
                 self.rawEditBody = post.body
                 if let body = post.body where self.isViewLoaded() {
-                    self.prepareScreenForEditing(body)
+                    self.prepareScreenForEditing(body, isComment: false)
                 }
             })
     }
@@ -117,7 +117,7 @@ public class OmnibarViewController: BaseElloViewController {
             screen.submitTitle = InterfaceString.Omnibar.EditPostButton
             screen.isEditing = true
             if let rawEditBody = rawEditBody {
-                prepareScreenForEditing(rawEditBody)
+                prepareScreenForEditing(rawEditBody, isComment: false)
             }
         }
         else if editComment != nil {
@@ -125,13 +125,14 @@ public class OmnibarViewController: BaseElloViewController {
             screen.submitTitle = InterfaceString.Omnibar.EditCommentButton
             screen.isEditing = true
             if let rawEditBody = rawEditBody {
-                prepareScreenForEditing(rawEditBody)
+                prepareScreenForEditing(rawEditBody, isComment: true)
             }
         }
         else {
             if parentPost != nil {
                 screen.title = InterfaceString.Omnibar.CreateCommentTitle
                 screen.submitTitle = InterfaceString.Omnibar.CreateCommentButton
+                prepareScreenForEditing([], isComment: true)
             }
             else {
                 screen.title = ""
@@ -220,8 +221,9 @@ public class OmnibarViewController: BaseElloViewController {
         }
     }
 
-    func prepareScreenForEditing(content: [Regionable]) {
+    func prepareScreenForEditing(content: [Regionable], isComment: Bool) {
         var regions: [OmnibarRegion] = []
+        var affiliateURL: NSURL?
         var downloads: [(Int, NSURL)] = []  // the 'index' is used to replace the ImageURL region after it is downloaded
         for (index, region) in content.enumerate() {
             if let region = region as? TextRegion,
@@ -232,10 +234,15 @@ public class OmnibarViewController: BaseElloViewController {
             else if let region = region as? ImageRegion,
                 url = region.url
             {
+                if let imageRegionURL = region.affiliateURL {
+                    affiliateURL = imageRegionURL
+                }
                 downloads.append((index, url))
                 regions.append(.ImageURL(url))
             }
         }
+        screen.isComment = isComment
+        screen.affiliateURL = affiliateURL
         screen.regions = regions
 
         let completed = after(downloads.count) {
