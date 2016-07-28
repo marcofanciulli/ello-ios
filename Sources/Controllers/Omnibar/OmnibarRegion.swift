@@ -48,7 +48,7 @@ public extension OmnibarRegion {
 
     var isImage: Bool {
         switch self {
-        case .ImageData, .Image: return true
+        case .ImageData, .Image, .ImageURL: return true
         default: return false
         }
     }

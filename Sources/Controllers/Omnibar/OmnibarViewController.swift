@@ -241,9 +241,9 @@ public class OmnibarViewController: BaseElloViewController {
                 regions.append(.ImageURL(url))
             }
         }
+        screen.regions = regions
         screen.isComment = isComment
         screen.affiliateURL = affiliateURL
-        screen.regions = regions
 
         let completed = after(downloads.count) {
             ElloHUD.hideLoadingHudInView(self.view)
