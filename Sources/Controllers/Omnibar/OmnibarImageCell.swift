@@ -12,7 +12,9 @@ public class OmnibarImageCell: UITableViewCell {
     }
 
     public let flImageView = FLAnimatedImageView()
+    public let affiliateButton = UIButton()
     public var reordering = false
+    public var hasAffiliateURL = false
 
     public var omnibarImage: UIImage? {
         get { return flImageView.image }
@@ -30,6 +32,17 @@ public class OmnibarImageCell: UITableViewCell {
         flImageView.clipsToBounds = true
         flImageView.contentMode = .ScaleAspectFill
         contentView.addSubview(flImageView)
+
+        affiliateButton.backgroundColor = .greenD1()
+        affiliateButton.adjustsImageWhenDisabled = false
+        affiliateButton.adjustsImageWhenHighlighted = false
+        affiliateButton.setImage(.Affiliate, imageStyle: .Normal, forState: .Normal)
+        affiliateButton.setImage(.Affiliate, imageStyle: .Normal, forState: .Disabled)
+        affiliateButton.frame.size = CGSize(width: 35, height: 35)
+        affiliateButton.layer.cornerRadius = affiliateButton.frame.size.width / 2
+        affiliateButton.hidden = true
+        affiliateButton.enabled = false
+        contentView.addSubview(affiliateButton)
     }
 
     required public init(coder: NSCoder) {
@@ -42,6 +55,14 @@ public class OmnibarImageCell: UITableViewCell {
         var frame = contentView.bounds
         if reordering {
             frame = frame.inset(topBottom: Size.bottomMargin / 2).inset(Size.editingMargins)
+            affiliateButton.hidden = true
+        }
+        else {
+            affiliateButton.hidden = !hasAffiliateURL
+            affiliateButton.frame.origin = CGPoint(
+                x: contentView.frame.size.width - 10 - affiliateButton.frame.size.width,
+                y: 10
+                )
         }
         flImageView.frame = frame
     }

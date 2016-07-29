@@ -40,10 +40,12 @@ extension OmnibarScreen: UITableViewDelegate, UITableViewDataSource {
                 textCell.attributedText = attributedText
             case let .Image(image):
                 let imageCell = cell as! OmnibarImageCell
+                imageCell.hasAffiliateURL = (affiliateURL != nil)
                 imageCell.omnibarImage = image
                 imageCell.reordering = reordering
             case let .ImageData(_, data, _):
                 let imageCell = cell as! OmnibarImageCell
+                imageCell.hasAffiliateURL = (affiliateURL != nil)
                 imageCell.omnibarAnimagedImage = FLAnimatedImage(animatedGIFData: data)
                 imageCell.reordering = reordering
             case let .Error(url):
