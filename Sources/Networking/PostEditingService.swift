@@ -20,10 +20,10 @@ public func == (lhs: PostEditingService.PostContentRegion, rhs: PostEditingServi
     switch (lhs, rhs) {
     case let (.Text(a), .Text(b)):
         return a == b
-    case let (.ImageData(la, _, _), .ImageData(ra, _, _)):
-        return la == ra
-    case let (.Image(la), .Image(ra)):
-        return la == ra
+    case let (.ImageData(leftImage, leftData, _), .ImageData(rightImage, rightData, _)):
+        return leftImage == rightImage && leftData == rightData
+    case let (.Image(leftImage), .Image(rightImage)):
+        return leftImage == rightImage
     default:
         return false
     }
