@@ -108,12 +108,9 @@ public class OmnibarViewController: BaseElloViewController {
 
         screen.canGoBack = canGoBack
         screen.currentUser = currentUser
-        let defaultRegions: [Regionable]
+        var defaultRegions: [Regionable] = []
         if let text = defaultText {
             defaultRegions = [TextRegion(content: text)]
-        }
-        else {
-            defaultRegions = []
         }
 
         if editPost != nil {
@@ -133,21 +130,23 @@ public class OmnibarViewController: BaseElloViewController {
             }
         }
         else {
+            let isComment: Bool
             if parentPost != nil {
                 screen.title = InterfaceString.Omnibar.CreateCommentTitle
                 screen.submitTitle = InterfaceString.Omnibar.CreateCommentButton
+                isComment = true
             }
             else {
                 screen.title = ""
                 screen.submitTitle = InterfaceString.Omnibar.CreatePostButton
+                isComment = false
             }
-            prepareScreenForEditing(defaultRegions, isComment: true)
+            prepareScreenForEditing(defaultRegions, isComment: isComment)
 
             if let fileName = omnibarDataName(),
                 data: NSData = Tmp.read(fileName)
                 where (defaultText ?? "") == ""
             {
-// MARK: Warning - not sure if gthis is working as expected
                 if let omnibarData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? OmnibarCacheData {
                     let regions: [OmnibarRegion] = omnibarData.regions.flatMap { obj in
                         if let region = OmnibarRegion.fromRaw(obj) {
