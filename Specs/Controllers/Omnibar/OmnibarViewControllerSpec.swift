@@ -11,10 +11,12 @@ import Nimble
 class OmnibarMockScreen: OmnibarScreenProtocol {
     var delegate: OmnibarScreenDelegate?
     var isEditing: Bool = false
+    var isComment: Bool = false
     var interactionEnabled: Bool = true
     var title: String = ""
     var submitTitle: String = ""
     var avatarURL: NSURL?
+    var affiliateURL: NSURL?
     var avatarImage: UIImage?
     var currentUser: User?
     var regions = [OmnibarRegion]() {
@@ -134,8 +136,8 @@ class OmnibarViewControllerSpec: QuickSpec {
                     let text = NSAttributedString(string: "test")
 
                     let regions = [
-                        OmnibarRegion.Image(image, nil, nil),
-                        OmnibarRegion.Image(image, data, contentType),
+                        OmnibarRegion.Image(image),
+                        OmnibarRegion.ImageData(image, data, contentType),
                         OmnibarRegion.AttributedText(text),
                         OmnibarRegion.Spacer,
                         OmnibarRegion.ImageURL(NSURL(string: "http://example.com")!),
@@ -145,7 +147,7 @@ class OmnibarViewControllerSpec: QuickSpec {
                     let content = subject.generatePostContent(regions)
                     expect(content.count) == 3
 
-                    guard case let PostEditingService.PostContentRegion.ImageData(outImage, _, _) = content[0] else {
+                    guard case let PostEditingService.PostContentRegion.Image(outImage) = content[0] else {
                         fail("content[0] is not PostEditingService.PostContentRegion.Image")
                         return
                     }
@@ -207,7 +209,7 @@ class OmnibarViewControllerSpec: QuickSpec {
 
                     let attributedString = ElloAttributedString.style("text")
                     let image = UIImage.imageWithColor(.blackColor())
-                    let omnibarData = OmnibarData()
+                    let omnibarData = OmnibarCacheData()
                     omnibarData.regions = [attributedString, image]
                     let data = NSKeyedArchiver.archivedDataWithRootObject(omnibarData)
 
@@ -252,7 +254,7 @@ class OmnibarViewControllerSpec: QuickSpec {
 
                     let image = UIImage.imageWithColor(.blackColor())
                     screen.regions = [
-                        .Text("text"), .Image(image, nil, nil)
+                        .Text("text"), .Image(image)
                     ]
                 }
 
@@ -274,6 +276,7 @@ class OmnibarViewControllerSpec: QuickSpec {
 
                 beforeEach {
                     subject = OmnibarViewController(parentPost: post, defaultText: "@666 ")
+                    showController(subject)
                 }
 
                 afterEach {
@@ -292,7 +295,7 @@ class OmnibarViewControllerSpec: QuickSpec {
                     }
 
                     let text = ElloAttributedString.style("testing!")
-                    let omnibarData = OmnibarData()
+                    let omnibarData = OmnibarCacheData()
                     omnibarData.regions = [text]
                     let data = NSKeyedArchiver.archivedDataWithRootObject(omnibarData)
                     if let fileName = subject.omnibarDataName() {
@@ -310,7 +313,7 @@ class OmnibarViewControllerSpec: QuickSpec {
                     }
 
                     let text = ElloAttributedString.style("testing!")
-                    let omnibarData = OmnibarData()
+                    let omnibarData = OmnibarCacheData()
                     omnibarData.regions = [text]
                     let data = NSData()
                     if let fileName = subject.omnibarDataName() {
@@ -350,7 +353,7 @@ class OmnibarViewControllerSpec: QuickSpec {
                     }
 
                     let text = ElloAttributedString.style("testing!")
-                    let omnibarData = OmnibarData()
+                    let omnibarData = OmnibarCacheData()
                     omnibarData.regions = [text]
                     let data = NSKeyedArchiver.archivedDataWithRootObject(omnibarData)
                     if let fileName = subject.omnibarDataName() {
