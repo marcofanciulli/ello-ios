@@ -96,6 +96,29 @@ class OmnibarViewControllerSpec: QuickSpec {
                 }
             }
 
+            context("determining screen isComment") {
+                it("should be false for a new post") {
+                    subject = OmnibarViewController()
+                    showController(subject)
+                    expect(subject.screen.isComment) == false
+                }
+                it("should be false for editing post") {
+                    subject = OmnibarViewController(editPost: stub([:]))
+                    showController(subject)
+                    expect(subject.screen.isComment) == false
+                }
+                it("should be true for a new comment") {
+                    subject = OmnibarViewController(parentPost: stub([:]))
+                    showController(subject)
+                    expect(subject.screen.isComment) == true
+                }
+                it("should be true for editing a comment") {
+                    subject = OmnibarViewController(editComment: stub([:]))
+                    showController(subject)
+                    expect(subject.screen.isComment) == true
+                }
+            }
+
             context("setting up the Screen") {
 
                 beforeEach {
@@ -220,8 +243,7 @@ class OmnibarViewControllerSpec: QuickSpec {
 
                     screen = OmnibarMockScreen()
                     subject.screen = screen
-                    subject.beginAppearanceTransition(true, animated: false)
-                    subject.endAppearanceTransition()
+                    showController(subject)
                 }
 
                 afterEach {
