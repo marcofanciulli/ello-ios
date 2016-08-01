@@ -19,9 +19,7 @@ class OmnibarMockScreen: OmnibarScreenProtocol {
     var affiliateURL: NSURL?
     var avatarImage: UIImage?
     var currentUser: User?
-    var regions = [OmnibarRegion]() {
-        didSet { print("regions: \(regions)")}
-    }
+    var regions = [OmnibarRegion]()
 
     var canGoBack = false
     var didReportError = false
