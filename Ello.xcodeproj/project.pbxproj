@@ -452,6 +452,7 @@
 		1D2B50BB1D272A6400F6CE90 /* BlackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B50BA1D272A6400F6CE90 /* BlackBar.swift */; };
 		1D2B50BD1D2C2FC000F6CE90 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B50BC1D2C2FC000F6CE90 /* CategoryService.swift */; };
 		1D2B6A7C1BE3FB0900D27DC9 /* AvatarButtonSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B6A7B1BE3FB0900D27DC9 /* AvatarButtonSpec.swift */; };
+		1D2C12AA1D4FD727007C4981 /* OmnibarScreenSnapshotSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C12A91D4FD727007C4981 /* OmnibarScreenSnapshotSpecs.swift */; };
 		1D2D18651AC322070078AA05 /* UIWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2D18641AC322070078AA05 /* UIWebView.swift */; };
 		1D2D18681AC322170078AA05 /* UIWebViewSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2D18671AC322170078AA05 /* UIWebViewSpecs.swift */; };
 		1D2F65A71D184CA30099D036 /* SeeAllCategoriesCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F65A61D184CA30099D036 /* SeeAllCategoriesCellPresenter.swift */; };
@@ -1291,6 +1292,7 @@
 		1D2B50BA1D272A6400F6CE90 /* BlackBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackBar.swift; sourceTree = "<group>"; };
 		1D2B50BC1D2C2FC000F6CE90 /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		1D2B6A7B1BE3FB0900D27DC9 /* AvatarButtonSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarButtonSpec.swift; sourceTree = "<group>"; };
+		1D2C12A91D4FD727007C4981 /* OmnibarScreenSnapshotSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmnibarScreenSnapshotSpecs.swift; sourceTree = "<group>"; };
 		1D2D18641AC322070078AA05 /* UIWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWebView.swift; sourceTree = "<group>"; };
 		1D2D18671AC322170078AA05 /* UIWebViewSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWebViewSpecs.swift; sourceTree = "<group>"; };
 		1D2F65A61D184CA30099D036 /* SeeAllCategoriesCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeAllCategoriesCellPresenter.swift; sourceTree = "<group>"; };
@@ -2095,6 +2097,7 @@
 		12551FBC1A6873A300ABC5D9 /* Omnibar */ = {
 			isa = PBXGroup;
 			children = (
+				1D2C12A91D4FD727007C4981 /* OmnibarScreenSnapshotSpecs.swift */,
 				1DA809C11B8F6DE9000BB590 /* OmnibarScreenSpec.swift */,
 				12551FBD1A6873D600ABC5D9 /* OmnibarViewControllerSpec.swift */,
 			);
@@ -4245,6 +4248,7 @@
 				12687A181BBF295E0055D0BA /* RateSpec.swift in Sources */,
 				76F90E5D1A97992D00F5B42F /* RelationshipControlSpec.swift in Sources */,
 				1DF942351A9FC92D00838E9C /* NotificationsFilterBarSpec.swift in Sources */,
+				1D2C12AA1D4FD727007C4981 /* OmnibarScreenSnapshotSpecs.swift in Sources */,
 				1D066FF31B8BA19E002B303D /* ArraySpec.swift in Sources */,
 				1DADA1691A96F4C60000DDA1 /* ColorsSpec.swift in Sources */,
 			);
