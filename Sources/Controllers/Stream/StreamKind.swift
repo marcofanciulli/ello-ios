@@ -41,7 +41,7 @@ public enum StreamKind {
         case .CurrentUserStream: return "Profile"
         case .MoreCategories: return "MoreCategories"
         case .AllCategories: return "AllCategories"
-        case let .CategoryPosts(slug): return "Category_\(slug)"
+        case .CategoryPosts: return "CategoryPosts"
         case .Discover: return "Discover"
         case .Following: return "Following"
         case .Starred: return "Starred"

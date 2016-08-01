@@ -35,7 +35,7 @@ class StreamKindSpec: QuickSpec {
 
                 it("is correct for all cases") {
                     expect(StreamKind.Discover(type: .Featured).cacheKey) == "Discover"
-                    expect(StreamKind.CategoryPosts(slug: "art").cacheKey) == "Category_art"
+                    expect(StreamKind.CategoryPosts(slug: "art").cacheKey) == "CategoryPosts"
                     expect(StreamKind.Following.cacheKey) == "Following"
                     expect(StreamKind.Starred.cacheKey) == "Starred"
                     expect(StreamKind.Notifications(category: "").cacheKey) == "Notifications"
@@ -52,7 +52,7 @@ class StreamKindSpec: QuickSpec {
 
                 it("is correct for all cases") {
                     expect(StreamKind.Discover(type: .Featured).lastViewedCreatedAtKey) == "Discover_createdAt"
-                    expect(StreamKind.CategoryPosts(slug: "art").lastViewedCreatedAtKey) == "Category_art_createdAt"
+                    expect(StreamKind.CategoryPosts(slug: "art").lastViewedCreatedAtKey) == "CategoryPosts_createdAt"
                     expect(StreamKind.Following.lastViewedCreatedAtKey) == "Following_createdAt"
                     expect(StreamKind.Starred.lastViewedCreatedAtKey) == "Starred_createdAt"
                     expect(StreamKind.Notifications(category: "").lastViewedCreatedAtKey) == "Notifications_createdAt"
