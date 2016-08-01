@@ -442,8 +442,10 @@ class OmnibarScreenSpec: QuickSpec {
                         }
                     }
                     context("setting to one text region array") {
-                        it("should set it to one text region") {
+                        beforeEach {
                             subject.regions = [.Text("testing")]
+                        }
+                        it("should set it to one text region") {
                             expect(subject.regions.count) == 1
                             expect(subject.regions[0].isText) == true
                             expect(subject.regions[0].empty) == false
@@ -453,8 +455,10 @@ class OmnibarScreenSpec: QuickSpec {
                         }
                     }
                     context("setting to one image region") {
-                        it("generates a text region") {
+                        beforeEach {
                             subject.regions = [.Image(UIImage())]
+                        }
+                        it("generates a text region") {
                             expect(subject.regions.count) == 2
                             expect(subject.regions[0].isImage) == true
                             expect(subject.regions[1].isText) == true
